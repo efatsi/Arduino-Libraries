@@ -1,0 +1,4 @@
+ButtonPlayer	KEYWORD1
+isPressed	KEYWORD2
+increment	KEYWORD2
+score	KEYWORD2
