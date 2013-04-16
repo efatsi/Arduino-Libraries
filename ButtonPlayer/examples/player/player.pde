@@ -3,11 +3,12 @@
 ButtonPlayer player1(2);
 
 const int start = millis();
-const int duration = 5000; // five seconds
+const int duration = 2000; // two seconds
 
 void setup()
 {
   Serial.begin(9600);
+  Serial.println("begin");
 }
 
 void loop()

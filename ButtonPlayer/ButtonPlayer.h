@@ -12,13 +12,19 @@ Released into the public domain.
 class ButtonPlayer
 {
   public:
-    ButtonPlayer(int pin);
+    ButtonPlayer(int pin, int number);
     bool isPressed();
     void increment();
-    int score();
+    void increment(int score);
+    int  score();
+    int  number();
+    bool reacted();
+    void setReaction(bool reacted);
   private:
     int  _pin;
     int  _score;
+    int  _number;
+    bool _reacted;
     int  _buttonState;
     long _lastButtonPress;
     int  _bounceBuffer;
