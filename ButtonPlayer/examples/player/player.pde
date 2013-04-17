@@ -14,7 +14,7 @@ void setup()
 void loop()
 {
   if (player1.isPressed()) {
-    player1.increment();
+    player1.increment(1);
   }
 
   if (millis() - start > duration) {

@@ -14,17 +14,13 @@ class ButtonPlayer
   public:
     ButtonPlayer(int pin, int number);
     bool isPressed();
-    void increment();
     void increment(int score);
     int  score();
     int  number();
-    bool reacted();
-    void setReaction(bool reacted);
-  private:
+  protected:
     int  _pin;
     int  _score;
     int  _number;
-    bool _reacted;
     int  _buttonState;
     long _lastButtonPress;
     int  _bounceBuffer;

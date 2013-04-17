@@ -13,7 +13,6 @@ ButtonPlayer::ButtonPlayer(int pin, int number)
   _pin    = pin;
   _number = number;
   _score  = 0;
-  _reacted = false;
 
   _lastButtonPress = millis();
   _bounceBuffer    = 20;
@@ -24,7 +23,6 @@ bool ButtonPlayer::isPressed()
   _buttonState = digitalRead(_pin);
   if (_buttonState == LOW) {
     if (millis() - _lastButtonPress > _bounceBuffer) {
-      Serial.println(millis() - _lastButtonPress);
       _lastButtonPress = millis();
       return true;
     }
@@ -33,11 +31,6 @@ bool ButtonPlayer::isPressed()
     }
   }
   return false;
-}
-
-void ButtonPlayer::increment()
-{
-  _score++;
 }
 
 void ButtonPlayer::increment(int score)
@@ -53,14 +46,4 @@ int ButtonPlayer::score()
 int ButtonPlayer::number()
 {
   return _number;
-}
-
-bool ButtonPlayer::reacted()
-{
-  return _reacted;
-}
-
-void ButtonPlayer::setReaction(bool reacted)
-{
-  _reacted = reacted;
 }
