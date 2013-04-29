@@ -3,5 +3,3 @@ isPressed	KEYWORD2
 increment	KEYWORD2
 score	KEYWORD2
 number	KEYWORD2
-reacted	KEYWORD2
-setReaction	KEYWORD2
