@@ -1,10 +1,10 @@
-#include <Counter.h>
+#include <DoubleCounter.h>
 
 const int serialPin        = 8;
 const int registerClockPin = 9;
 const int serialClockPin   = 10;
 
-Counter counter(serialPin, registerClockPin, serialClockPin);
+DoubleCounter counter(serialPin, registerClockPin, serialClockPin);
 
 void setup()
 {
@@ -13,8 +13,8 @@ void setup()
 
 void loop()
 {
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 100; i++) {
     counter.draw(i);
-    delay(500);
+    delay(100);
   }
 }

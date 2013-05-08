@@ -1,22 +1,24 @@
 /*
-Counter.cpp - Library for a 7-segment LED and a shift register
+DoubleCounter.cpp - Library for a 7-segment LED and a shift register
 Created by Elias S. Fatsi, April 29th, 2013.
 Released into the public domain.
 */
 
 #include "Arduino.h"
-#include "Counter.h"
+#include "DoubleCounter.h"
 
-Counter::Counter(int serialPin, int registerClockPin, int serialClockPin)
+DoubleCounter::DoubleCounter(int serialPin, int registerClockPin, int serialClockPin)
 {
   _serialPin        = serialPin;
   _serialClockPin   = serialClockPin;
   _registerClockPin = registerClockPin;
 
-  boolean _registers[7];
+  _numberOfPins = 16;
+
+  bool _registers[_numberOfPins];
 }
 
-void Counter::init() {
+void DoubleCounter::init() {
   pinMode(_serialPin, OUTPUT);
   pinMode(_registerClockPin, OUTPUT);
   pinMode(_serialClockPin, OUTPUT);
@@ -25,14 +27,14 @@ void Counter::init() {
   writeRegisters();
 }
 
-void Counter::clearRegisters()
+void DoubleCounter::clearRegisters()
 {
-  for(int i = 7 - 1; i >=  0; i--) {
+  for(int i = _numberOfPins - 1; i >=  0; i--) {
      _registers[i] = LOW;
   }
 }
 
-void Counter::draw(int number)
+void DoubleCounter::draw(int number)
 {
   char* directory[]= {
     "11111100", // 0
@@ -47,31 +49,31 @@ void Counter::draw(int number)
     "11100110"  // 9
   };
 
-  for (int i = 0; i < 7; i++) {
-    setRegisterPin(i, directory[number][i] == '1');
+  for (int i = 0; i < 8; i++) {
+    setRegisterPin(i, directory[(number % 100) / 10][i] == '1');
+    setRegisterPin(i + 8, directory[number % 10][i] == '1');
   }
 
   writeRegisters();
 }
 
-void Counter::setRegisterPin(int index, int value)
+void DoubleCounter::setRegisterPin(int index, int value)
 {
   _registers[index] = value;
 }
 
-void Counter::writeRegisters()
+void DoubleCounter::writeRegisters()
 {
   digitalWrite(_registerClockPin, LOW);
 
-  for(int i = 7; i >=  0; i--){
+  for(int i = _numberOfPins - 1; i >=  0; i--){
     digitalWrite(_serialClockPin, LOW);
 
     int val = _registers[i];
 
     digitalWrite(_serialPin, val);
     digitalWrite(_serialClockPin, HIGH);
-
   }
+
   digitalWrite(_registerClockPin, HIGH);
-  
 }
